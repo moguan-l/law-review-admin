@@ -1,0 +1,139 @@
+@import '~iview/src/styles/index.less';
+
+// Color
+@primary-color: #37ac68;
+
+#app, body, html {
+    height: 100%;
+}
+.scrollbar::-webkit-scrollbar {
+    width: 2px;
+}
+.scrollbar::-webkit-scrollbar-track,
+.scrollbar::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d4d8e2;
+}
+.scrollbar::-webkit-scrollbar-button {
+    background-color: #fff;
+    display: none;
+}
+.block {
+    display: block;
+}
+.inline-block {
+    display: inline-block;
+}
+.clear-fix {
+    zoom: 1;
+    &:after {
+        content: '';
+        display: block;
+        overflow: hidden;
+        clear: both;
+        visibility: hidden;
+    }
+}
+.flex {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-center {
+    justify-content: center;
+}
+.flex-middle {
+    align-items: center;
+}
+.flex-1 {
+    flex: 1;
+}
+.pull-left {
+    float: left;
+}
+.pull-right {
+    float: right;
+}
+.text-left {
+    text-align: left !important;
+}
+.text-right {
+    text-align: right !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.text-info {
+    color: #57a3f3 !important;
+}
+.text-danger {
+    color: #ed3f14 !important;
+}
+.text-success {
+    color: #19be6b !important;
+}
+.text-muted {
+    color: #9ea7b4 !important;
+}
+.text-bold {
+    font-weight: bold;
+}
+
+.panel {
+    margin-bottom: 16px;
+    background-color: #ffffff;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .panel-header {
+        position: relative;
+        padding: 14px 16px;
+        border-bottom: 1px solid #e9eaec;
+        zoom: 1;
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+            visibility: hidden;
+        }
+    }
+    .panel-body {
+        position: relative;
+        padding: 16px;
+        zoom: 1;
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+            visibility: hidden;
+        }
+    }
+    .panel-footer {
+        position: relative;
+        padding: 14px 16px;
+        border-top: 1px solid #e9eaec;
+    }
+}
+.custom-date-picker {
+    .ivu-date-picker-rel {
+        .ivu-input {
+            padding-right: 24px;
+            width: 172px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            &:focus {
+                box-shadow: none;
+            }
+        }
+        &:hover {
+            .ivu-input-icon,
+            .ivu-input {
+                color: #57a3f3;
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+.layout {
+    height: 100%;
+    .layout-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+        padding: 0 20px;
+        width: 100%;
+        .layout-header-title {
+            position: relative;
+            float: left;
+            padding: 15px 0 15px 15px;
+            font-size: large;
+            color: #ffffff;
+            line-height: 30px;
+        }
+        .layout-header-nav {
+            float: right;
+            list-style: none;
+            .nav-item {
+                float: left;
+                padding-left: 28px;
+                color: #ffffff;
+                a {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+    .layout-nav {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        padding-top: 15px;
+        width: 200px;
+        background: #fff;
+        border-right: 1px solid #e9eaec;
+        .nav-container {
+            flex: 1;
+            overflow: hidden;
+            &:hover {
+                overflow-y: auto;
+            }
+        }
+        .ivu-menu-item {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .ivu-menu-item-active {
+            color: #2d8cf0;
+        }
+    }
+    .layout-body {
+        position: relative;
+        margin-left: 200px;
+        padding: 75px 15px 38px 15px;
+        min-width: 767px;
+        min-height: 100%;
+    }
+}
