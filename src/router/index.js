@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import iView from 'iview';
 import {name} from '../config';
+import auth from '../assets/js/auth';
 import {title} from '../assets/js/util';
 import '../theme/index.less';
 
@@ -49,7 +50,18 @@ const router =  new Router({
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
     title(to.meta.title);
-    next()
+    if (to.matched.some(record => record.meta.requireAuth)) {
+        if (!auth.loggedIn()) {
+            next({
+                path: '/login',
+                query: {redirect: to.fullPath}
+            })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
 });
 
 router.afterEach(() => {

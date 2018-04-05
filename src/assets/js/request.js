@@ -1,6 +1,5 @@
 import axios from 'axios';
 import iView from 'iview';
-import auth from './auth';
 import {baseURL} from '../../config';
 
 axios.defaults.timeout = 30000;

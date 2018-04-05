@@ -1,20 +1,18 @@
 import store from 'store';
 
-const TOKEN = 'token';
+const USER = 'user';
 
 export default {
     get() {
-        return {
-            [TOKEN]: store.get(TOKEN)
-        }
+        return store.get(USER)
     },
-    login({token}) {
-        store.set(TOKEN, token)
+    login(user) {
+        store.set(USER, user)
     },
     logout() {
-        store.remove(TOKEN)
+        store.remove(USER)
     },
     loggedIn() {
-        return !!store.get(TOKEN)
+        return !!store.get(USER)
     }
 }

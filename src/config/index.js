@@ -14,7 +14,7 @@ export const name = '违法拍照管理台';
  * 请求基础url
  * @type {string}
  */
-export const baseURL = env !== 'production' ? '' : '';
+export const baseURL = env !== 'production' ? 'https://www.pohou.com' : 'https://www.pohou.com';
 /**
  * 菜单
  */
