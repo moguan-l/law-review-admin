@@ -13,18 +13,7 @@
                             {{menu.name}}
                         </template>
                         <template v-for="_menu in menu.children">
-                            <MenuItem v-if="!_menu.children || !_menu.children.length" :name="_menu.url">
-                                <Icon v-if="!!_menu.icon" :type="_menu.icon"/>
-                                {{_menu.name}}
-                            </MenuItem>
-                            <MenuGroup v-else :title="_menu.name">
-                                <template v-for="__menu in _menu.children">
-                                    <MenuItem :name="__menu.url">
-                                        <Icon v-if="!!__menu.icon" :type="__menu.icon"/>
-                                        {{__menu.name}}
-                                    </MenuItem>
-                                </template>
-                            </MenuGroup>
+                            <MenuItem :name="_menu.url">{{_menu.name}}</MenuItem>
                         </template>
                     </Submenu>
                 </template>

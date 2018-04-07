@@ -22,6 +22,51 @@ const router =  new Router({
                     path: '/index',
                     meta: {title: `欢迎-${name}`, requireAuth: true},
                     component: resolve => require(['../pages/index'], resolve)
+                },
+                {
+                    path: '/illegal/audit',
+                    meta: {title: `违规审核-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/illegal/audit'], resolve)
+                },
+                {
+                    path: '/illegal/offer/index',
+                    meta: {title: `违规提报-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/illegal/offer/index'], resolve)
+                },
+                {
+                    path: '/illegal/offer/archive',
+                    meta: {title: `提报档案-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/illegal/offer/archive'], resolve)
+                },
+                {
+                    path: '/duty/index',
+                    meta: {title: `任务发布-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/duty/index'], resolve)
+                },
+                {
+                    path: '/credit/index',
+                    meta: {title: `积分管理-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/credit/index'], resolve)
+                },
+                {
+                    path: '/credit/channel',
+                    meta: {title: `积分渠道-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/credit/channel'], resolve)
+                },
+                {
+                    path: '/template/index',
+                    meta: {title: `模板管理-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/template/index'], resolve)
+                },
+                {
+                    path: '/city/index',
+                    meta: {title: `城市管理-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/city/index'], resolve)
+                },
+                {
+                    path: '/setting/user',
+                    meta: {title: `用户管理-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/setting/user'], resolve)
                 }
             ]
         },

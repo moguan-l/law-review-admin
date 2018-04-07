@@ -1,10 +1,10 @@
 @import '~iview/src/styles/index.less';
 
-// Color
 @primary-color: #37ac68;
 
 #app, body, html {
     height: 100%;
+    background-color: @background-color-base;
 }
 .scrollbar::-webkit-scrollbar {
     width: 2px;
@@ -81,7 +81,6 @@
 .text-bold {
     font-weight: bold;
 }
-
 .panel {
     margin-bottom: 16px;
     background-color: #ffffff;
@@ -116,6 +115,10 @@
         padding: 14px 16px;
         border-top: 1px solid #e9eaec;
     }
+}
+.ivu-page {
+    float: right;
+    margin-top: 16px;
 }
 .custom-date-picker {
     .ivu-date-picker-rel {

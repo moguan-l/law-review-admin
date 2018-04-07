@@ -71,7 +71,7 @@
                                 }
                                 this.$router.push('/')
                             })
-                            .catch(err => this.loginLoading = true)
+                            .catch(err => this.loginLoading = false)
                     }
                 })
             }
