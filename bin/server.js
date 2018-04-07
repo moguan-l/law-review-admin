@@ -10,6 +10,6 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(staticPath, './index.html'))
 });
 
-app.listen(8080, function () {
+app.listen(8086, function () {
     console.info(process.env.NODE_ENV)
 });
