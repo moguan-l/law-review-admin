@@ -29,7 +29,7 @@
 
 <script>
     import auth from '../../assets/js/auth';
-    import {queryNotify, saveOrUpdateNotice} from '../../service/duty';
+    import {queryNoticeList, saveOrUpdateNotice} from '../../service/duty';
 
     const uid = auth.get().userId;
 
@@ -100,7 +100,7 @@
             },
             requestData(pageNum = 1) {
                 this.loading = true;
-                queryNotify({reqPage: {pageNum, pageSize: this.page.pageSize}})
+                queryNoticeList({pageNum, pageSize: this.page.pageSize})
                     .then(res => {
                         this.loading = false;
                         if (res.ret) {

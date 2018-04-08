@@ -78,8 +78,8 @@
                         width: 160,
                         key: 'templateType',
                         render: (h, param) => {
-                            let templateType = this.templateTypes.filter(item => item.templateTypeId == param.row.templateType)[0];
-                            return h('span', !!templateType ? templateType.templateTypeName : '')
+                            let templateType = this.templateTypes.filter(item => item.value == param.row.templateType)[0];
+                            return h('span', !!templateType ? templateType.label : '')
                         }
                     },
                     {

@@ -3,8 +3,8 @@
  */
 import request from '../assets/js/request';
 
-export const queryNotify = data => {
-    return request({method: 'post', url: '/api/user/event/queryNotify', data})
+export const queryNoticeList = data => {
+    return request({method: 'post', url: '/admin/api/message/queryNoticeList', data})
 };
 
 export const saveOrUpdateNotice = data => {
