@@ -153,16 +153,21 @@
                             return this.$Message.warning('请选择模板类型')
                         }
                         this.saveTemplateLoading = true;
-                        saveTemplate(this.templateForm, res => {
-                            this.saveTemplateLoading = false;
-                            if (res.ret) {
-                                this.templateModal = false;
-                                this.$Message.success('保存成功');
-                                this.requestData()
-                            } else {
-                                this.$Message.error(res.errmsg)
-                            }
-                        })
+                        saveTemplate(this.templateForm)
+                            .then(res => {
+                                this.saveTemplateLoading = false;
+                                if (res.ret) {
+                                    this.templateModal = false;
+                                    this.$Message.success('保存成功');
+                                    this.requestData()
+                                } else {
+                                    this.$Message.error(res.errmsg)
+                                }
+                            })
+                            .catch(err => {
+                                this.saveTemplateLoading = false;
+                                this.$Message.error('请求异常')
+                            })
                     }
                 })
             }

@@ -133,8 +133,27 @@
         },
         created() {
             this.getCityList();
-            this.selectTemplate();
-            this.requestData()
+            let loading = this.$Message.loading({content: '正在加载', duration: 0});
+            selectTemplate({})
+                .then(res => {
+                    loading();
+                    if (res.ret) {
+                        this.template_1 = (res.data || []).filter(item => item.templateType === 1);
+                        this.template_2 = (res.data || []).filter(item => item.templateType === 2);
+                        this.requestData()
+                    } else {
+                        this.$Message.error(res.errmsg)
+                    }
+                })
+                .catch(err => {
+                    loading();
+                    this.$Message.error('请求异常')
+                })
+        },
+        watch: {
+            auditModal(value) {
+                !value && this.$refs.auditForm.resetFields()
+            }
         },
         methods: {
             getColumns() {
@@ -177,7 +196,7 @@
                     },
                     {
                         title: '所在位置',
-                        key: 'address'
+                        key: 'position'
                     },
                     {
                         title: '违规原因',
@@ -280,15 +299,6 @@
                         this.$Message.error('请求异常')
                     })
             },
-            selectTemplate() {
-                selectTemplate({})
-                    .then(res => {
-                        if (res.ret) {
-                            this.template_1 = (res.data || []).filter(item => item.templateType === 1);
-                            this.template_2 = (res.data || []).filter(item => item.templateType === 2)
-                        }
-                    })
-            },
             getCityList() {
                 getCityList({pageNum: 1, pageSize: 9999})
                     .then(res => {
@@ -299,7 +309,7 @@
             },
             audit(audit) {
                 this.auditModal = true;
-                let {id} = audit;
+                let {authId: id} = audit;
                 this.auditForm = {
                     id, uid,
                     auditLevel: '',

@@ -14,3 +14,7 @@ export const executeAudit = data => {
 export const batchStock = data => {
     return request({method: 'post', url: '/admin/api/audit/batchStock', data})
 };
+
+export const selectViolationsStock = data => {
+    return request({method: 'post', url: '/admin/api/audit/selectViolationsStock', data})
+};

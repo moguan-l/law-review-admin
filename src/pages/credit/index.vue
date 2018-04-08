@@ -140,16 +140,21 @@
                 this.$refs.channelForm.validate((valid) => {
                     if (valid) {
                         this.saveChannelLoading = true;
-                        savePointChannelInfo(this.channelForm, res => {
-                            this.saveChannelLoading = false;
-                            if (res.ret) {
-                                this.channelModal = false;
-                                this.$Message.success('保存成功');
-                                this.requestData()
-                            } else {
-                                this.$Message.error(res.errmsg);
-                            }
-                        })
+                        savePointChannelInfo(this.channelForm)
+                            .then(res => {
+                                this.saveChannelLoading = false;
+                                if (res.ret) {
+                                    this.channelModal = false;
+                                    this.$Message.success('保存成功');
+                                    this.requestData()
+                                } else {
+                                    this.$Message.error(res.errmsg);
+                                }
+                            })
+                            .catch(err => {
+                                this.saveChannelLoading = false;
+                                this.$Message.error('请求异常')
+                            })
                     }
                 })
             }
