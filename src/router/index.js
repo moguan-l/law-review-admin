@@ -25,18 +25,13 @@ const router =  new Router({
                 },
                 {
                     path: '/illegal/audit',
-                    meta: {title: `违规审核-${name}`, requireAuth: true},
+                    meta: {title: `违规信息-${name}`, requireAuth: true},
                     component: resolve => require(['../pages/illegal/audit'], resolve)
                 },
                 {
-                    path: '/illegal/offer/index',
-                    meta: {title: `违规提报-${name}`, requireAuth: true},
-                    component: resolve => require(['../pages/illegal/offer/index'], resolve)
-                },
-                {
-                    path: '/illegal/offer/archive',
+                    path: '/illegal/archive',
                     meta: {title: `提报档案-${name}`, requireAuth: true},
-                    component: resolve => require(['../pages/illegal/offer/archive'], resolve)
+                    component: resolve => require(['../pages/illegal/archive'], resolve)
                 },
                 {
                     path: '/duty/index',
@@ -47,11 +42,6 @@ const router =  new Router({
                     path: '/credit/index',
                     meta: {title: `积分管理-${name}`, requireAuth: true},
                     component: resolve => require(['../pages/credit/index'], resolve)
-                },
-                {
-                    path: '/credit/channel',
-                    meta: {title: `积分渠道-${name}`, requireAuth: true},
-                    component: resolve => require(['../pages/credit/channel'], resolve)
                 },
                 {
                     path: '/template/index',

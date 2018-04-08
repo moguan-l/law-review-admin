@@ -6,9 +6,9 @@
                     <Button type="primary" icon="plus-round" @click="addTemplate">添加模板</Button>
                 </Col>
                 <Col span="12">
-                    <Select v-model="templateType" class="pull-right" style="width: 200px" :on-change="requestData">
+                    <Select v-model="templateType" class="pull-right" style="width: 200px">
                         <Option :value="0">全部模板</Option>
-                        <Option v-for="item in templateTypes" :value="item.templateTypeId" :key="item.templateTypeId">{{item.templateTypeName}}</Option>
+                        <Option v-for="item in templateTypes" :value="item.value" :key="item.value">{{item.label}}</Option>
                     </Select>
                 </Col>
             </Row>
@@ -22,7 +22,7 @@
             >
                 <Form ref="templateForm" :model="templateForm" :rules="templateRule" :label-width="80">
                     <FormItem label="模板类型">
-                        <Cascader :data="handledTemplateTypes" v-model="templateForm.types" trigger="hover"/>
+                        <Cascader :data="templateTypes" v-model="templateForm.types" trigger="hover"/>
                     </FormItem>
                     <FormItem label="模板内容" prop="content">
                         <Input type="text" v-model="templateForm.content"/>
@@ -60,22 +60,9 @@
             this.getTemplateType();
             this.requestData()
         },
-        computed: {
-            handledTemplateTypes() {
-                return this.templateTypes.map(item => {
-                    let {templateTypeId, templateTypeName, subTypeList} = item;
-                    return {
-                        value: templateTypeId,
-                        label: templateTypeName,
-                        children: subTypeList && subTypeList.map(_item => {
-                            let {subTypeId, subTypeName} = _item;
-                            return {
-                                value: subTypeId,
-                                label: subTypeName
-                            }
-                        })
-                    }
-                })
+        watch: {
+            templateType() {
+                this.requestData()
             }
         },
         methods: {
@@ -83,7 +70,17 @@
                 return [
                     {
                         title: '模板ID',
-                        key: 'templateId'
+                        width: 80,
+                        key: 'id'
+                    },
+                    {
+                        title: '模板类型',
+                        width: 160,
+                        key: 'templateType',
+                        render: (h, param) => {
+                            let templateType = this.templateTypes.filter(item => item.templateTypeId == param.row.templateType)[0];
+                            return h('span', !!templateType ? templateType.templateTypeName : '')
+                        }
                     },
                     {
                         title: '模板内容',
@@ -107,11 +104,27 @@
                         this.$Message.error('请求异常')
                     })
             },
+            handleTemplateTypes(data) {
+                return data.map(item => {
+                    let {templateTypeId, templateTypeName, subTypeList} = item;
+                    return {
+                        value: templateTypeId,
+                        label: templateTypeName,
+                        children: !!subTypeList ? subTypeList.map(_item => {
+                            let {subTypeId, subTypeName} = _item;
+                            return {
+                                value: subTypeId,
+                                label: subTypeName
+                            }
+                        }) : []
+                    }
+                })
+            },
             getTemplateType() {
                 getTemplateType()
                     .then(res => {
                         if (res.ret) {
-                            this.templateTypes = res.data
+                            this.templateTypes = this.handleTemplateTypes(res.data)
                         }
                     })
             },

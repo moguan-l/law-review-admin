@@ -2,7 +2,7 @@
     <div class="panel">
         <div class="panel-body">
             <Table :columns="columns" :data="data" :loading="loading"/>
-            <Page :total="page.total" :current="page.pageNum" show-total size="small" @on-change="requestData"/>
+            <!--<Page :total="page.total" :current="page.pageNum" show-total size="small" @on-change="requestData"/>-->
         </div>
     </div>
 </template>
@@ -31,6 +31,18 @@
                     {
                         title: '城市ID',
                         key: 'cityCode'
+                    },
+                    {
+                        title: '城市名称',
+                        key: 'name'
+                    },
+                    {
+                        title: '经度',
+                        key: 'lng'
+                    },
+                    {
+                        title: '纬度',
+                        key: 'lat'
                     }
                 ]
             },
@@ -40,7 +52,7 @@
                     .then(res => {
                         this.loading = false;
                         if (res.ret) {
-
+                            this.data = res.data
                         } else {
                             this.$Message.error(res.errmsg)
                         }
