@@ -86,7 +86,7 @@
                                 [
                                     h('Button', {
                                         props: {
-                                            type: 'text',
+                                            type: 'ghost',
                                             size: 'small'
                                         },
                                         on: {
@@ -109,7 +109,7 @@
                                     }, [
                                         h('Button', {
                                             props: {
-                                                type: 'text',
+                                                type: 'ghost',
                                                 size: 'small'
                                             }
                                         }, '删除')

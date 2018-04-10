@@ -88,7 +88,7 @@
                         render: (h, params) => {
                             return h('Button', {
                                 props: {
-                                    type: 'text',
+                                    type: 'ghost',
                                     size: 'small'
                                 },
                                 on: {

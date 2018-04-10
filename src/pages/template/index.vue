@@ -16,7 +16,7 @@
         <div class="panel-body">
             <Table :columns="columns" :data="data" :loading="loading"/>
             <Modal v-model="templateModal"
-                   width="400"
+                   width="500"
                    :title="templateModalTitle"
                    :mask-closable="false"
             >
@@ -25,7 +25,7 @@
                         <Cascader :data="templateTypes" v-model="templateForm.types" trigger="hover"/>
                     </FormItem>
                     <FormItem label="模板内容" prop="content">
-                        <Input type="text" v-model="templateForm.content"/>
+                        <Input type="textarea" :rows="4" v-model="templateForm.content"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">

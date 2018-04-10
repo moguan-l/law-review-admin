@@ -263,7 +263,7 @@
                                 [
                                     h('Button', {
                                         props: {
-                                            type: 'text',
+                                            type: 'ghost',
                                             size: 'small',
                                             disabled: params.row.lastAuditStatus == 2
                                         },

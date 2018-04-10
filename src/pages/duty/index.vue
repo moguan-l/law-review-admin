@@ -7,7 +7,7 @@
             <Table :columns="columns" :data="data" :loading="loading"/>
             <Page :total="page.total" :current="page.pageNum" show-total size="small" @on-change="requestData"/>
             <Modal v-model="dutyModal"
-                   width="400"
+                   width="600"
                    :title="dutyModalTitle"
                    :mask-closable="false"
             >
@@ -16,7 +16,7 @@
                         <Input type="text" v-model.trim="dutyForm.title"/>
                     </FormItem>
                     <FormItem label="任务内容" prop="content">
-                        <Input type="text" v-model="dutyForm.content"/>
+                        <Input type="textarea" :rows="6" v-model="dutyForm.content"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">
@@ -66,6 +66,7 @@
                 return [
                     {
                         title: '任务名称',
+                        width: 260,
                         key: 'title'
                     },
                     {
@@ -74,6 +75,7 @@
                     },
                     {
                         title: '创建时间',
+                        width: 160,
                         key: 'createTime',
                         render: (h, param) => {
                             return h('span', new Date(param.row.createTime).format('yyyy-MM-dd hh:mm:ss'))
@@ -81,11 +83,12 @@
                     },
                     {
                         title: '操作',
+                        width: 80,
                         key: 'action',
                         render: (h, params) => {
                             return h('Button', {
                                 props: {
-                                    type: 'text',
+                                    type: 'ghost',
                                     size: 'small'
                                 },
                                 on: {
@@ -104,7 +107,9 @@
                     .then(res => {
                         this.loading = false;
                         if (res.ret) {
-                            this.data = res.data
+                            let {items, ...page} = res.data;
+                            this.data = items;
+                            this.page = page
                         } else {
                             this.$Message.error(res.errmsg)
                         }
