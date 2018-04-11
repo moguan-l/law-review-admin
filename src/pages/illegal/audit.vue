@@ -94,6 +94,7 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import auth from '../../assets/js/auth';
     import {queryAuditList, executeAudit, batchStock} from '../../service/illegal';
     import {getCityList} from '../../service/city';
@@ -157,6 +158,7 @@
                     this.$Message.error('请求异常')
                 })
         },
+        computed: mapGetters(['resources']),
         watch: {
             auditModal(value) {
                 !value && this.$refs.auditForm.resetFields()

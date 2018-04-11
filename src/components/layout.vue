@@ -17,8 +17,8 @@
     import '../assets/style/layout.less';
 
     export default {
-        data() {
-            return {}
+        created() {
+            this.$store.dispatch('getResources')
         },
         components: {leftMenu, rightMenu}
     }
