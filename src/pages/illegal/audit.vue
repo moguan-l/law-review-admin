@@ -58,7 +58,7 @@
                 </Carousel>
             </Modal>
             <Modal v-model="auditModal"
-                   width="400"
+                   width="500"
                    title="审核"
                    :mask-closable="false"
             >
@@ -76,10 +76,13 @@
                             <Option :value="2">审核不通过</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label="原因" v-if="auditForm.result == 2" prop="auditRemark">
-                        <Select v-model="auditForm.auditRemark" placeholde="请选择原因">
+                    <FormItem label="原因" v-if="auditForm.result == 2" prop="rejectReason">
+                        <Select v-model="auditForm.rejectReason" placeholde="请选择原因">
                             <Option v-for="item in template_2" :value="item.id" :key="item.id">{{item.content}}</Option>
                         </Select>
+                    </FormItem>
+                    <FormItem label="审核备注" prop="auditRemark">
+                        <Input type="textarea" :row="4" v-model="auditForm.auditRemark"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">
@@ -127,7 +130,7 @@
                 auditRules: {
                     auditLevel: [{validator: validateAudit, message: '请选择审核层级', trigger: 'blur'}],
                     result: [{validator: validateAudit, message: '请选择审核结果', trigger: 'blur'}],
-                    auditRemark: [{validator: validateAudit, message: '请选择原因', trigger: 'blur'}]
+                    rejectReason: [{validator: validateAudit, message: '请选择原因', trigger: 'blur'}]
                 },
                 saveAuditLoading: false,
                 selectedAudits: [],
@@ -318,6 +321,7 @@
                     id, uid,
                     auditLevel: '',
                     result: '',
+                    rejectReason: '',
                     auditRemark: ''
                 }
             },
@@ -325,9 +329,9 @@
                 this.$refs.auditForm.validate(valid => {
                     if (valid) {
                         this.saveAuditLoading = true;
-                        let {auditRemark, ...others} = this.auditForm,
-                            remark = this.template_2.filter(item => item.id == auditRemark)[0];
-                        executeAudit({...others, auditRemark: others.result == 2 ? remark.content : ''})
+                        let {rejectReason, ...others} = this.auditForm,
+                            reason = this.template_2.filter(item => item.id == rejectReason)[0];
+                        executeAudit({...others, rejectReason: others.result == 2 ? reason.content : ''})
                             .then(res => {
                                 this.saveAuditLoading = false;
                                 if (res.ret) {
