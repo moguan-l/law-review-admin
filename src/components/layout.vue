@@ -6,7 +6,8 @@
         </Menu>
         <left-menu/>
         <div class="layout-body">
-            <router-view/>
+            <router-view v-if="routerShow"/>
+            <Spin size="large" fix v-else></Spin>
         </div>
     </div>
 </template>
@@ -17,8 +18,16 @@
     import '../assets/style/layout.less';
 
     export default {
+        data() {
+            return {
+                routerShow: false
+            }
+        },
         created() {
             this.$store.dispatch('getResources')
+                .then(() => {
+                    this.routerShow = true
+                })
         },
         components: {leftMenu, rightMenu}
     }

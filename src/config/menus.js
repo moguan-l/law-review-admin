@@ -20,6 +20,11 @@ export default [
         icon: 'ios-paperplane'
     },
     {
+        name: '用户管理',
+        url: '/user/index',
+        icon: 'ios-people'
+    },
+    {
         name: '积分管理',
         url: '/credit/index',
         icon: 'ios-flag'

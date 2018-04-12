@@ -39,6 +39,11 @@ const router =  new Router({
                     component: resolve => require(['../pages/duty/index'], resolve)
                 },
                 {
+                    path: '/user/index',
+                    meta: {title: `用户管理-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/user/index'], resolve)
+                },
+                {
                     path: '/credit/index',
                     meta: {title: `积分管理-${name}`, requireAuth: true},
                     component: resolve => require(['../pages/credit/index'], resolve)

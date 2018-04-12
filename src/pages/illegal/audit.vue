@@ -1,10 +1,4 @@
-<style scope type="text/less" lang="less">
-    .illegal-img-overview {
-        width: 60px;
-        height: 45px;
-        vertical-align: middle;
-        cursor: pointer;
-    }
+<style scoped type="text/less" lang="less">
     .illegal-img-container {
         height: 450px;
         text-align: center;
@@ -38,7 +32,9 @@
                     </Select>
                 </Col>
                 <Col span="6">
-                    <Button type="primary" @click="requestData()">搜索</Button>
+                    <Button type="primary" @click="requestData()"
+                            v-auth.renewable="query.auditLevel == 'firstAuditStatus' ? 1010101 : query.auditLevel == 'secondAuditStatus' ? 1010102 : 1010103"
+                    >搜索</Button>
                 </Col>
                 <Col span="6" class="text-right" v-if="!!selectedAudits && !!selectedAudits.length">
                     <Button type="primary" @click="batchStock">批量提报</Button>
@@ -94,7 +90,6 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
     import auth from '../../assets/js/auth';
     import {queryAuditList, executeAudit, batchStock} from '../../service/illegal';
     import {getCityList} from '../../service/city';
@@ -158,7 +153,6 @@
                     this.$Message.error('请求异常')
                 })
         },
-        computed: mapGetters(['resources']),
         watch: {
             auditModal(value) {
                 !value && this.$refs.auditForm.resetFields()
@@ -185,7 +179,6 @@
                                     }
                                 }, [
                                     h('img', {
-                                        class: 'illegal-img-overview',
                                         domProps: {
                                             src: attachInfoList[0].url
                                         },
@@ -264,6 +257,7 @@
                         title: '操作',
                         key: 'action',
                         render: (h, params) => {
+                            let {auditLevel} = this.query;
                             return h('div',
                                 [
                                     h('Button', {
@@ -276,7 +270,13 @@
                                             click: () => {
                                                 this.audit(params.row)
                                             }
-                                        }
+                                        },
+                                        directives: [
+                                            {
+                                                name: 'auth',
+                                                value: auditLevel == 'firstAuditStatus' ? 1010101 : auditLevel == 'secondAuditStatus' ? 1010102 : 1010103
+                                            }
+                                        ]
                                     }, '审核')
                                 ])
                         }
