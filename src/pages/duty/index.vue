@@ -77,8 +77,8 @@
                         title: '创建时间',
                         width: 160,
                         key: 'createTime',
-                        render: (h, param) => {
-                            return h('span', new Date(param.row.createTime).format('yyyy-MM-dd hh:mm:ss'))
+                        render: (h, params) => {
+                            return h('span', new Date(params.row.createTime).format('yyyy-MM-dd hh:mm:ss'))
                         }
                     },
                     {

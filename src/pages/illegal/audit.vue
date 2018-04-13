@@ -169,8 +169,8 @@
                     {
                         title: '违规照片',
                         key: 'attachInfoList',
-                        render: (h, param) => {
-                            let {attachInfoList} = param.row;
+                        render: (h, params) => {
+                            let {attachInfoList} = params.row;
                             return !!attachInfoList && !!attachInfoList.length ?
                                 h('Tooltip', {
                                     props: {
@@ -203,8 +203,8 @@
                     {
                         title: '违规原因',
                         key: 'reasionTempateId',
-                        render: (h, param) => {
-                            let reason = (this.template_1 || []).filter(item => item.id == param.row.reasionTempateId)[0];
+                        render: (h, params) => {
+                            let reason = (this.template_1 || []).filter(item => item.id == params.row.reasionTempateId)[0];
                             return h('span', !!reason ? reason.content : '')
                         }
                     },
@@ -214,8 +214,8 @@
                     },
                     {
                         title: '审核状态',
-                        render: (h, param) => {
-                            let {firstAuditStatus, secondAuditStatus, lastAuditStatus} = param.row,
+                        render: (h, params) => {
+                            let {firstAuditStatus, secondAuditStatus, lastAuditStatus} = params.row,
                                 auditStatus = '';
                             switch (true) {
                                 case !firstAuditStatus:
@@ -248,8 +248,8 @@
                     },
                     {
                         title: '审核说明',
-                        render: (h, param) => {
-                            let {firstAuditRemark, secondAuditRemark, lastAuditRemark} = param.row;
+                        render: (h, params) => {
+                            let {firstAuditRemark, secondAuditRemark, lastAuditRemark} = params.row;
                             return h('span', [firstAuditRemark, secondAuditRemark, lastAuditRemark].join('\n'))
                         }
                     },

@@ -90,6 +90,13 @@
                     {
                         title: '昵称',
                         key: 'nickname'
+                    },
+                    {
+                        title: '创建时间',
+                        key: 'createTime',
+                        render: (h, params) => {
+                            return h('span', new Date(params.row.createTime).format('yyyy-MM-dd hh:mm:ss'))
+                        }
                     }
                 ]
             },

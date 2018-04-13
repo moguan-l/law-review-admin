@@ -77,8 +77,8 @@
                         title: '模板类型',
                         width: 160,
                         key: 'templateType',
-                        render: (h, param) => {
-                            let templateType = this.templateTypes.filter(item => item.value == param.row.templateType)[0];
+                        render: (h, params) => {
+                            let templateType = this.templateTypes.filter(item => item.value == params.row.templateType)[0];
                             return h('span', !!templateType ? templateType.label : '')
                         }
                     },
