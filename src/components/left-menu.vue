@@ -39,7 +39,7 @@
         computed: mapGetters(['menus']),
         watch: {
             menus() {
-                this.menuExtend && this.$nextTick(() => {
+                this.$nextTick(() => {
                     this.$refs.menu.updateActiveName();
                     this.$refs.menu.updateOpened()
                 })
