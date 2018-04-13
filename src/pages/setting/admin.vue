@@ -75,6 +75,11 @@
         created() {
             this.requestData()
         },
+        watch: {
+            adminModal(value) {
+                !value && this.$refs.adminForm.resetFields()
+            }
+        },
         methods: {
             getColumns() {
                 return [
