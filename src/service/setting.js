@@ -13,6 +13,6 @@ export const queryAdminUser = data => {
 };
 
 export const addAdminUser = data => {
-    let {username, addUsername, nickname, password} = data;
-    return request({method: 'post', url: '/admin/api/user/auditing/addAdminUser', data: {username, addUsername, nickname, password: crypto.MD5(password).toString()}})
+    let {username, addUsername, nickname, password, cityCode, cityName} = data;
+    return request({method: 'post', url: '/admin/api/user/auditing/addAdminUser', data: {username, addUsername, nickname, cityCode, cityName, password: crypto.MD5(password).toString()}})
 };

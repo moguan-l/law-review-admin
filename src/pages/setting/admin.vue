@@ -16,11 +16,16 @@
                         <Input type="text" v-if="adminForm.type === 1" v-model.trim="adminForm.addUsername"/>
                         <template v-else>{{adminForm.addUsername}}</template>
                     </FormItem>
+                    <FormItem label="密码" prop="password">
+                        <Input type="password" v-model="adminForm.password"/>
+                    </FormItem>
                     <FormItem label="昵称" prop="nickname">
                         <Input type="text" v-model="adminForm.nickname"/>
                     </FormItem>
-                    <FormItem label="密码" prop="password">
-                        <Input type="password" v-model="adminForm.password"/>
+                    <FormItem label="所在城市" prop="cityCode">
+                        <Select v-model="adminForm.cityCode">
+                            <Option v-for="item in cityList" :value="item.cityCode" :key="item.cityCode">{{item.name}}</Option>
+                        </Select>
                     </FormItem>
                 </Form>
                 <div slot="footer">
@@ -33,6 +38,7 @@
 <script>
     import auth from '../../assets/js/auth';
     import {queryAdminUser, addAdminUser} from '../../service/setting';
+    import {getCityList} from '../../service/city';
 
     const username = auth.get().username;
 
@@ -54,6 +60,7 @@
                 callback()
             };
             return {
+                cityList: [],
                 columns: this.getColumns(),
                 data: [],
                 loading: false,
@@ -73,6 +80,7 @@
             }
         },
         created() {
+            this.getCityList();
             this.requestData()
         },
         watch: {
@@ -90,6 +98,10 @@
                     {
                         title: '昵称',
                         key: 'nickname'
+                    },
+                    {
+                        title: '所在城市',
+                        key: 'cityName'
                     },
                     {
                         title: '创建时间',
@@ -118,21 +130,30 @@
                         this.$Message.error('请求异常')
                     })
             },
+            getCityList() {
+                getCityList({pageNum: 1, pageSize: 9999})
+                    .then(res => {
+                        if (res.ret) {
+                            this.cityList = res.data
+                        }
+                    })
+            },
             addAdmin() {
                 this.adminModal = true;
                 this.adminModalTitle = '添加管理员';
                 this.adminForm = {
                     type: 1,
                     addUsername: '',
+                    password: '',
                     nickname: '',
-                    password: ''
+                    cityCode: this.cityList[0].cityCode
                 }
             },
             saveAdmin() {
                 this.$refs.adminForm.validate((valid) => {
                     if (valid) {
                         this.saveAdminLoading = true;
-                        addAdminUser({username, ...this.adminForm})
+                        addAdminUser({username, ...this.adminForm, cityName: this.cityList.filter(item => item.cityCode == this.adminForm.cityCode)[0].name})
                             .then(res => {
                                 this.saveAdminLoading = false;
                                 if (res.ret) {
