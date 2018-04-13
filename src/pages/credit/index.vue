@@ -130,7 +130,7 @@
             editChannel(channel) {
                 this.channelModal = true;
                 this.channelModalTitle = '编辑积分渠道';
-                let {channelKey, channelName, amount} = index;
+                let {channelKey, channelName, amount} = channel;
                 this.channelForm = {
                     type: 2,
                     channelKey, channelName, amount
