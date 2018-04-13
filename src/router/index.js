@@ -59,9 +59,9 @@ const router =  new Router({
                     component: resolve => require(['../pages/city/index'], resolve)
                 },
                 {
-                    path: '/setting/user',
-                    meta: {title: `用户管理-${name}`, requireAuth: true},
-                    component: resolve => require(['../pages/setting/user'], resolve)
+                    path: '/setting/admin',
+                    meta: {title: `后台用户管理-${name}`, requireAuth: true},
+                    component: resolve => require(['../pages/setting/admin'], resolve)
                 }
             ]
         },

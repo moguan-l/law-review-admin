@@ -4,7 +4,7 @@
 import request from '../assets/js/request';
 
 export const queryUser = data => {
-    return request({method: 'post', url: '/admin/api/user/auditing/queryUser', data})
+    return request({method: 'post', url: '/admin/api/user/auditing/queryUser', data: {isAdmin: 0, ...data}})
 };
 
 export const auditingUser = data => {

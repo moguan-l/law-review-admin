@@ -45,8 +45,8 @@ export default [
         icon: 'ios-gear',
         children: [
             {
-                name: '用户管理',
-                url: '/setting/user'
+                name: '后台用户管理',
+                url: '/setting/admin'
             }
         ]
     }
