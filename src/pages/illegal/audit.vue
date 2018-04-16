@@ -349,6 +349,7 @@
                     },
                     {
                         title: '操作',
+                        width: 120,
                         key: 'action',
                         render: (h, params) => {
                             let {auditLevel} = this.query;
