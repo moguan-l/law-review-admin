@@ -9,6 +9,16 @@
     .illegal-detail-container {
         overflow-y: auto;
         height: 500px;
+        .company {
+            margin-bottom: 16px;
+            font-size: 18px;
+            img {
+                margin-right: 5px;
+                width: 36px;
+                height: 36px;
+                vertical-align: -11px;
+            }
+        }
         .illegal-detail {
             width: 100%;
             border-collapse: collapse;
@@ -69,6 +79,9 @@
             </Modal>
             <Modal v-model="illegalModal" title="违规信息" :mask-closable="false">
                 <div ref="illegalDetail" class="illegal-detail-container scrollbar">
+                    <div class="company">
+                        <img src="data:image/png;base64,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">中广大数据有限责任公司
+                    </div>
                     <table class="illegal-detail">
                         <tr>
                             <td>报告编号</td>
@@ -412,7 +425,7 @@
             printIllegal() {
                 let printWindow = window.open('打印窗口', '_blank'),
                     docStr = [
-                        '<style>.illegal-detail{width:100%;border-collapse:collapse;border-spacing:0}.illegal-detail td{padding:5px;border:1px solid #000;vertical-align:top}</style>',
+                        '<style>.company{margin-bottom:16px;font-size:18px}.company img{margin-right:5px;width:36px;height:36px;vertical-align:-11px}.illegal-detail{width:100%;border-collapse:collapse;border-spacing:0}.illegal-detail td{padding:5px;border:1px solid #000;vertical-align:top}</style>',
                         this.$refs.illegalDetail.innerHTML
                     ];
                 printWindow.document.write(docStr.join(''));
