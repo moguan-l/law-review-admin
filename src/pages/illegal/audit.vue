@@ -6,6 +6,20 @@
             height: 100%;
         }
     }
+    .illegal-detail-container {
+        overflow-y: auto;
+        height: 500px;
+        .illegal-detail {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            td {
+                padding: 5px;
+                border: 1px solid #000;
+                vertical-align: top;
+            }
+        }
+    }
 </style>
 <template>
     <div class="panel">
@@ -45,13 +59,74 @@
             <Table :columns="columns" :data="data" :loading="loading" @on-selection-change="handleSelectChange"/>
             <Page :total="page.total" :current="page.pageNum" show-total size="small" @on-change="requestData"/>
             <Modal v-model="previewImageModal" :width="768" title="违规照片" :footerHide="true">
-                <Carousel v-if="!!previewImages && !!previewImages.length">
+                <Carousel v-if="!!previewImages && !!previewImages.length" v-model="previewImageIndex">
                     <CarouselItem v-for="item in previewImages" :key="item.url">
                         <div class="illegal-img-container">
                             <img :src="item.url"/>
                         </div>
                     </CarouselItem>
                 </Carousel>
+            </Modal>
+            <Modal v-model="illegalModal" title="违规信息" :mask-closable="false">
+                <div ref="illegalDetail" class="illegal-detail-container scrollbar">
+                    <table class="illegal-detail">
+                        <tr>
+                            <td>报告编号</td>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td>检测方式</td>
+                            <td colspan="3">现场拍照</td>
+                        </tr>
+                        <tr>
+                            <td>检测城市</td>
+                            <td colspan="3">{{illegalDetail.cityName}}</td>
+                        </tr>
+                        <tr>
+                            <td>广告类型</td>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td>具体地址</td>
+                            <td colspan="3">{{illegalDetail.position}}{{illegalDetail.address}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <template v-if="!!illegalDetail.attachInfoList && !!illegalDetail.attachInfoList.length">
+                                    <img style="max-width: 100%; max-height: 200px;" v-for="(item, index) in illegalDetail.attachInfoList" :key="index" :src="item.url"/>
+                                </template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>广告主</td>
+                            <td colspan="3">{{illegalDetail.ownership}}</td>
+                        </tr>
+                        <tr>
+                            <td>广告商</td>
+                            <td>无</td>
+                            <td>联系方式</td>
+                            <td>无</td>
+                        </tr>
+                        <tr>
+                            <td>违规判定</td>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center">违规原因</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="height: 100px">
+                                {{(template_1 || []).filter(item => item.id == illegalDetail.reasionTempateId)[0] ? (template_1 || []).filter(item => item.id == illegalDetail.reasionTempateId)[0].content : ''}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="height: 100px">备注：{{illegalDetail.content}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div slot="footer">
+                    <Button type="primary" @click="printIllegal">打印</Button>
+                </div>
             </Modal>
             <Modal v-model="auditModal"
                    width="500"
@@ -131,7 +206,10 @@
                 saveAuditLoading: false,
                 selectedAudits: [],
                 previewImageModal: false,
-                previewImages: []
+                previewImageIndex: 0,
+                previewImages: [],
+                illegalModal: false,
+                illegalDetail: {}
             }
         },
         created() {
@@ -168,6 +246,7 @@
                     },
                     {
                         title: '违规照片',
+                        width: 90,
                         key: 'attachInfoList',
                         render: (h, params) => {
                             let {attachInfoList} = params.row;
@@ -185,6 +264,7 @@
                                         on: {
                                             click: () => {
                                                 this.previewImages = attachInfoList;
+                                                this.previewImageIndex = 0;
                                                 this.previewImageModal = true
                                             }
                                         }
@@ -214,6 +294,7 @@
                     },
                     {
                         title: '审核状态',
+                        width: 100,
                         render: (h, params) => {
                             let {firstAuditStatus, secondAuditStatus, lastAuditStatus} = params.row,
                                 auditStatus = '';
@@ -258,8 +339,20 @@
                         key: 'action',
                         render: (h, params) => {
                             let {auditLevel} = this.query;
-                            return h('div',
+                            return h('ButtonGroup',
                                 [
+                                    h('Button', {
+                                        props: {
+                                            type: 'ghost',
+                                            size: 'small'
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.illegalModal = true;
+                                                this.illegalDetail = params.row;
+                                            }
+                                        }
+                                    }, '打印'),
                                     h('Button', {
                                         props: {
                                             type: 'ghost',
@@ -315,6 +408,17 @@
                             this.cityList = res.data
                         }
                     })
+            },
+            printIllegal() {
+                let printWindow = window.open('打印窗口', '_blank'),
+                    docStr = [
+                        '<style>.illegal-detail{width:100%;border-collapse:collapse;border-spacing:0}.illegal-detail td{padding:5px;border:1px solid #000;vertical-align:top}</style>',
+                        this.$refs.illegalDetail.innerHTML
+                    ];
+                printWindow.document.write(docStr.join(''));
+                printWindow.document.close();
+                printWindow.print();
+                printWindow.close()
             },
             audit(audit) {
                 this.auditModal = true;
