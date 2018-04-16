@@ -93,7 +93,7 @@
                         <tr>
                             <td colspan="4">
                                 <template v-if="!!illegalDetail.attachInfoList && !!illegalDetail.attachInfoList.length">
-                                    <img style="max-width: 100%; max-height: 200px;" v-for="(item, index) in illegalDetail.attachInfoList" :key="index" :src="item.url"/>
+                                    <img style="margin-right: 5px;max-width: 100%; max-height: 200px;" v-for="(item, index) in illegalDetail.attachInfoList" :key="index" :src="item.url"/>
                                 </template>
                             </td>
                         </tr>
